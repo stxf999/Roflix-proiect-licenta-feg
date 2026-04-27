@@ -1,0 +1,730 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+
+    <meta charset="UTF-8" />
+    <title>ROFLIX - Romanian Movies Streaming Concept</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="roflix-body">
+
+    <!-- intro si login (animatie linkuita la css) -->
+    <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
+        <div class="intro-logo-wrapper">
+            <div class="intro-logo">ROFLIX</div>
+        </div>
+    </div>
+
+    <!-- textura de gradient -->
+    <div class="bg-gradient"></div>
+
+    <!-- login viewu cum ar veni -->
+    <section id="view-login" class="view-auth active-view">
+        <div class="auth-logo">ROFLIX</div>
+        <div class="auth-card">
+            <h1 class="auth-title" data-i18n="auth.signInTitle">Sign In</h1>
+            <p class="auth-subtitle" data-i18n="auth.signInSubtitle">
+                Welcome to ROFLIX - Romanian movies only.
+            </p>
+            <form id="login-form" class="auth-form" novalidate>
+                <div class="form-group">
+                    <label for="login-email" data-i18n="auth.emailLabel">Email</label>
+                    <input type="email"
+                           id="login-email"
+                           placeholder="demo@roflix.ro"
+                           required
+                           data-i18n-placeholder="auth.emailPlaceholder" />
+                </div>
+                <div class="form-group">
+                    <label for="login-password" data-i18n="auth.passwordLabel">Password</label>
+                    <input type="password"
+                           id="login-password"
+                           placeholder="parola123"
+                           required
+                           data-i18n-placeholder="auth.passwordPlaceholder" />
+                </div>
+                <button type="submit" id="login-button" class="btn btn-primary btn-block">
+                    <span class="btn-label" data-i18n="auth.signInButton">Sign In</span>
+                    <span class="btn-spinner" aria-hidden="true"></span>
+                </button>
+                <p id="login-error" class="form-error" aria-live="polite"></p>
+                <p class="demo-hint">
+                    <span data-i18n="auth.demoHintLabel">Demo account:</span>
+                    <strong>demo@roflix.ro</strong> / <strong>parola123</strong>
+                </p>
+                <p class="project-note" data-i18n="auth.projectNote">
+                    This is a university project. No real accounts are created.
+                </p>
+            </form>
+            <p class="auth-switch">
+                <span data-i18n="auth.newHere">New to ROFLIX?</span>
+                <button id="go-to-signup" class="link-button" type="button" data-i18n="auth.signUpNow">
+                    Sign up now
+                </button>
+            </p>
+        </div>
+    </section>
+
+    <!-- sign up fake, oricum nu merge si nici nu mi bat capu sa fac si sign up -->
+    <section id="view-signup" class="view-auth">
+        <div class="auth-logo">ROFLIX</div>
+        <div class="auth-card">
+            <h1 class="auth-title" data-i18n="signup.title">Create account</h1>
+            <p class="auth-subtitle" data-i18n="signup.subtitle">
+                Concept sign up screen for the ROFLIX thesis project.
+            </p>
+            <form id="signup-form" class="auth-form" novalidate>
+                <div class="form-group">
+                    <label for="signup-email" data-i18n="auth.emailLabel">Email</label>
+                    <input type="email"
+                           id="signup-email"
+                           placeholder="you@example.com"
+                           data-i18n-placeholder="signup.emailPlaceholder" />
+                </div>
+                <div class="form-group">
+                    <label for="signup-password" data-i18n="auth.passwordLabel">Password</label>
+                    <input type="password"
+                           id="signup-password"
+                           placeholder="Your password"
+                           data-i18n-placeholder="signup.passwordPlaceholder" />
+                </div>
+                <div class="form-group">
+                    <label for="signup-password2" data-i18n="signup.confirmPasswordLabel">
+                        Confirm password
+                    </label>
+                    <input type="password"
+                           id="signup-password2"
+                           placeholder="Repeat password"
+                           data-i18n-placeholder="signup.confirmPasswordPlaceholder" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" data-i18n="signup.button">
+                    Create account
+                </button>
+                <p class="project-note" data-i18n="signup.note">
+                    This is a concept UI. In a real version of ROFLIX, you could create your account here.
+                    This is a university project. No real accounts are created.
+                </p>
+            </form>
+            <p class="auth-switch">
+                <span data-i18n="signup.haveAccount">Already have an account?</span>
+                <button id="go-to-login" class="link-button" type="button" data-i18n="auth.signInButton">
+                    Sign in
+                </button>
+            </p>
+        </div>
+    </section>
+
+    <!-- selectie de profile, foarte simpla -->
+    <section id="view-profiles" class="view-profiles">
+        <header class="profiles-header">
+            <div class="profiles-logo">ROFLIX</div>
+        </header>
+        <main class="profiles-main">
+            <h1 class="profiles-title" data-i18n="profiles.title">Who is watching?</h1>
+            <div class="profiles-grid">
+                <button class="profile-card" data-profile-name="Stefan">
+                    <div class="profile-avatar profile-avatar-1" aria-hidden="true"></div>
+                    <span class="profile-name">Stefan</span>
+                </button>
+                <button class="profile-card" data-profile-name="Nico">
+                    <div class="profile-avatar profile-avatar-2" aria-hidden="true"></div>
+                    <span class="profile-name">Nico</span>
+                </button>
+                <button class="profile-card" data-profile-name="Invitat">
+                    <div class="profile-avatar profile-avatar-3" aria-hidden="true"></div>
+                    <span class="profile-name">Invitat</span>
+                </button>
+            </div>
+            <button id="manage-profiles"
+                    class="btn btn-outline profiles-manage"
+                    data-i18n="profiles.manage">
+                Manage profiles
+            </button>
+        </main>
+    </section>
+
+    <!-- pagina principala -->
+    <div id="app-shell" class="app-shell">
+        <!-- bara de navigatie -->
+        <header id="navbar" class="navbar">
+            <div class="navbar-left">
+                <div class="navbar-logo">ROFLIX</div>
+                <nav class="navbar-links" aria-label="Main navigation">
+                    <button class="nav-link active" data-page="home" data-i18n="nav.home">Home</button>
+                    <button class="nav-link" data-page="movies" data-i18n="nav.movies">Movies</button>
+                    <button class="nav-link" data-page="mylist" data-i18n="nav.myList">My List</button>
+                    <a href="pricing/index.html"
+                       class="nav-link"
+                       data-i18n="nav.Pricing"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Pricing Plans
+                    </a>
+                </nav>
+            </div>
+            <div class="navbar-right">
+                <form class="nav-search" role="search">
+                    <input type="search"
+                           id="nav-search-input"
+                           placeholder="Search Romanian movies..."
+                           aria-label="Search movies"
+                           data-i18n-placeholder="nav.searchPlaceholder" />
+                    <button type="button" class="nav-search-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" class="icon">
+                            <circle cx="11" cy="11" r="7" stroke="currentColor" fill="none" stroke-width="2" />
+                            <line x1="16" y1="16" x2="21" y2="21" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </button>
+                </form>
+
+                <div class="nav-language">
+                    <select id="language-select" aria-label="Language selector">
+                        <option value="ro">RO</option>
+                        <option value="en">EN</option>
+                    </select>
+                </div>
+
+                <div class="nav-profile">
+                    <button id="profile-menu-toggle" class="profile-button">
+                        <span id="current-profile-label">Profile</span>
+                        <div class="profile-avatar-mini" aria-hidden="true"></div>
+                    </button>
+                    <div id="profile-menu" class="profile-menu">
+                        <button class="profile-menu-item" id="menu-manage-profiles" type="button" data-i18n="menu.manageProfiles">
+                            Manage Profiles
+                        </button>
+                        <button class="profile-menu-item" id="menu-account" type="button" data-i18n="menu.account">
+                            Account
+                        </button>
+                        <button class="profile-menu-item" id="menu-settings" type="button" data-i18n="menu.settings">
+                            Settings
+                        </button>
+                        <button id="logout-button"
+                                class="profile-menu-item profile-menu-danger"
+                                type="button"
+                                data-i18n="menu.logout">
+                            Log out
+                        </button>
+                    </div>
+                </div>
+
+                <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+            <!-- justify pt mobil -->
+            <div id="mobile-menu" class="mobile-menu">
+                <button class="nav-link" data-page="home" data-i18n="nav.home">Home</button>
+                <button class="nav-link" data-page="movies" data-i18n="nav.movies">Movies</button>
+                <button class="nav-link" data-page="mylist" data-i18n="nav.myList">My List</button>
+            </div>
+        </header>
+
+        <!-- continut principalaaaaaaaaaaaaarhg -->
+        <main id="app-main" class="app-main">
+            <!-- pagina de acasa -->
+            <section id="page-home" class="app-page active-page">
+                <!-- cap -->
+                <section id="hero" class="hero fade-in">
+                    <div class="hero-background">
+                        <div class="hero-bg-image" id="hero-bg-image"></div>
+                        <div class="hero-gradient"></div>
+                    </div>
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <div class="hero-badge-row">
+                                <span class="hero-badge-top">ROFLIX ORIGINAL</span>
+                            </div>
+                            <h1 id="hero-title" class="hero-title"></h1>
+                            <div class="hero-meta">
+                                <span class="hero-age-badge">15+</span>
+                                <span id="hero-year"></span>
+                                <span class="hero-dot">•</span>
+                                <span id="hero-duration"></span>
+                                <span class="hero-dot">•</span>
+                                <span id="hero-rating"></span>
+                            </div>
+                            <div id="hero-tags" class="hero-tags"></div>
+                            <p id="hero-description" class="hero-description"></p>
+                            <div class="hero-actions">
+                                <button class="btn btn-primary hero-btn" id="hero-play" data-i18n="hero.play">
+                                    ▶ Play
+                                </button>
+                                <button class="btn btn-secondary hero-btn" id="hero-more-info" data-i18n="hero.moreInfo">
+                                    More info
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- loading placeholder gen -->
+                <section id="skeleton-rows" class="rows-skeleton">
+                    <div class="rows-skeleton-row">
+                        <div class="rows-skeleton-title skeleton-bar"></div>
+                        <div class="rows-skeleton-cards">
+                            <div class="skeleton-card"></div>
+                            <div class="skeleton-card"></div>
+                            <div class="skeleton-card"></div>
+                            <div class="skeleton-card"></div>
+                            <div class="skeleton-card"></div>
+                        </div>
+                    </div>
+                    <div class="rows-skeleton-row">
+                        <div class="rows-skeleton-title skeleton-bar"></div>
+                        <div class="rows-skeleton-cards">
+                            <div class="skeleton-card"></div>
+                            <div class="skeleton-card"></div>
+                            <div class="skeleton-card"></div>
+                            <div class="skeleton-card"></div>
+                            <div class="skeleton-card"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- containar cu randuri -->
+                <section id="rows-container" class="rows-container hidden"></section>
+
+                <!-- rand cu rezultatele cautarii =)) -->
+                <section id="search-results-section" class="search-results-section hidden">
+                    <h2 class="row-title">
+                        <span data-i18n="search.resultsTitle">Search results for</span>
+                        <span id="search-query-label"></span>
+                    </h2>
+                    <div class="row-cards" id="search-results-cards"></div>
+                    <p id="search-no-results" class="empty-message hidden" data-i18n="search.noResults">
+                        No results found. Try another Romanian title or category.
+                    </p>
+                </section>
+            </section>
+
+            <!-- pagina cu filme -->
+            <section id="page-movies" class="app-page">
+                <h2 class="page-title" data-i18n="movies.allTitle">
+                    All Romanian movies on ROFLIX
+                </h2>
+                <div id="movies-grid" class="movies-grid"></div>
+            </section>
+
+            <!-- pagina cu lista mea (putin buguita) -->
+            <section id="page-mylist" class="app-page">
+                <h2 class="page-title" data-i18n="mylist.title">My List</h2>
+                <p id="mylist-empty" class="empty-message" data-i18n="mylist.empty">
+                    You have not added any Romanian movies yet. Start exploring ROFLIX!
+                </p>
+                <div id="mylist-grid" class="movies-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- capatu paginii -->
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <div class="footer-logo">ROFLIX</div>
+                <p class="footer-text" data-i18n="footer.tagline">
+                    © 2025 ROFLIX. All rights reserved. Fully designed by Bostoaca Stefan.
+                </p>
+                <p class="footer-address" data-i18n="footer.address">
+                    Str. Principala, 10, Iași, Romania.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a id="footer-terms"
+                   class="link-button footer-link"
+                   href="terms-of-service/index.html"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   data-i18n="footer.terms">
+                    Terms of Service
+                </a>
+
+                <a id="footer-privacy"
+                   class="link-button footer-link"
+                   href="privacy-policy/index.html"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   data-i18n="footer.privacy">
+                    Privacy Policy
+                </a>
+
+                <a id="footer-pricing"
+                   class="link-button footer-link"
+                   href="pricing/index.html"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   data-i18n="footer.pricing">
+                    Pricing Plans
+                </a>
+            </div>
+
+
+            <div class="footer-social">
+                <span class="footer-social-label" data-i18n="footer.follow">
+                    Follow ROFLIX
+                </span>
+                <div class="footer-social-buttons">
+                    <a class="icon-btn footer-social-btn"
+                       href="https://facebook.com/"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="ROFLIX on Facebook">
+                        f
+                    </a>
+                    <a class="icon-btn footer-social-btn"
+                       href="https://instagram.com/"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="ROFLIX on Instagram">
+                        ig
+                    </a>
+                    <a class="icon-btn footer-social-btn"
+                       href="https://x.com/"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="ROFLIX on X">
+                        x
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- setari popup -->
+    <div id="settings-overlay" class="settings-overlay" aria-hidden="true">
+        <div class="settings-dialog">
+            <header class="settings-header">
+                <div>
+                    <h2 class="settings-title" data-i18n="settings.title">Settings</h2>
+                    <p class="settings-subtitle" data-i18n="settings.subtitle">
+                        Personalize your ROFLIX experience.
+                    </p>
+                </div>
+                <button id="settings-close" class="modal-close" aria-label="Close settings">
+                    ✕
+                </button>
+            </header>
+            <div class="settings-body">
+                <aside class="settings-tabs" aria-label="Settings navigation">
+                    <button class="settings-tab-btn active"
+                            data-settings-tab="profile"
+                            type="button"
+                            data-i18n="settings.tabProfile">
+                        Profile
+                    </button>
+                    <button class="settings-tab-btn"
+                            data-settings-tab="account"
+                            type="button"
+                            data-i18n="settings.tabAccount">
+                        Account
+                    </button>
+                    <button class="settings-tab-btn"
+                            data-settings-tab="experience"
+                            type="button"
+                            data-i18n="settings.tabExperience">
+                        Playback & UI
+                    </button>
+                </aside>
+
+                <section class="settings-panels">
+                    <!-- TODO: un mic bug aici cand bagi poza se sterge numele da undefined, da merge oricum -->
+                    <div id="settings-profile" class="settings-panel active">
+                        <h3 class="settings-panel-title" data-i18n="settings.profileTitle">Profile settings</h3>
+                        <p class="settings-panel-description" data-i18n="settings.profileDescription">
+                            Update your display name, avatar and maturity preferences for the current profile.
+                        </p>
+
+                        <div class="settings-grid">
+                            <div>
+                                <label class="settings-label" for="profile-display-name" data-i18n="settings.profileNameLabel">
+                                    Profile name
+                                </label>
+                                <input id="profile-display-name"
+                                       class="settings-input"
+                                       type="text"
+                                       placeholder="Profile name"
+                                       data-i18n-placeholder="settings.profileNamePlaceholder" />
+                                <p class="settings-hint" data-i18n="settings.profileNameHint">
+                                    This name is shown in the profile selector and in the navigation bar.
+                                </p>
+
+                                <div class="settings-toggle-row">
+                                    <label class="switch">
+                                        <input id="profile-kid" type="checkbox" />
+                                        <span class="switch-slider"></span>
+                                    </label>
+                                    <div>
+                                        <div class="settings-toggle-label" data-i18n="settings.kidLabel">Kid profile</div>
+                                        <div class="settings-toggle-description" data-i18n="settings.kidDescription">
+                                            Interface tuned for younger viewers. For this, this is visual only.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="settings-label" data-i18n="settings.avatarLabel">Profile picture</label>
+                                <div class="avatar-upload-row">
+                                    <div class="avatar-preview-wrapper">
+                                        <div id="profile-avatar-preview" class="avatar-preview"></div>
+                                    </div>
+                                    <div class="avatar-upload-controls">
+                                        <label class="btn btn-secondary btn-sm">
+                                            <input id="profile-avatar-upload"
+                                                   type="file"
+                                                   accept="image/*"
+                                                   class="avatar-file-input" />
+                                            <span data-i18n="settings.avatarUpload">Upload image</span>
+                                        </label>
+                                        <button id="profile-avatar-reset"
+                                                type="button"
+                                                class="btn btn-outline btn-sm"
+                                                data-i18n="settings.avatarReset">
+                                            Remove picture
+                                        </button>
+                                        <p class="settings-hint" data-i18n="settings.avatarHint">
+                                            Images stay only in your browser. Nothing is uploaded to a server.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- setari cont -->
+                    <div id="settings-account" class="settings-panel">
+                        <h3 class="settings-panel-title" data-i18n="settings.accountTitle">Account</h3>
+                        <p class="settings-panel-description" data-i18n="settings.accountDescription">
+                            Account information for the ROFLIX user.
+                        </p>
+
+                        <div class="settings-grid">
+                            <div>
+                                <div class="settings-field-row">
+                                    <div class="settings-field-label" data-i18n="settings.accountEmailLabel">
+                                        Email
+                                    </div>
+                                    <div id="account-email-value" class="settings-field-value">
+                                        demo@roflix.ro
+                                    </div>
+                                </div>
+                                <div class="settings-field-row">
+                                    <div class="settings-field-label" data-i18n="settings.accountPlanLabel">
+                                        Plan
+                                    </div>
+                                    <div class="settings-field-value" data-i18n="settings.accountPlanValue">
+                                        ROFLIX Student
+                                    </div>
+                                </div>
+                                <div class="settings-field-row">
+                                    <div class="settings-field-label" data-i18n="settings.accountStatusLabel">
+                                        Account status
+                                    </div>
+                                    <div class="settings-field-value" data-i18n="settings.accountStatusValue">
+                                        Account for a bachelor thesis project.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="settings-panel-subtitle" data-i18n="settings.dangerTitle">Danger zone</h4>
+                                <p class="settings-panel-description" data-i18n="settings.dangerDescription">
+                                    You can clear all local data for this, including My List and profile customizations.
+                                </p>
+                                <button id="account-reset-app"
+                                        type="button"
+                                        class="btn btn-outline btn-danger"
+                                        data-i18n="settings.resetButton">
+                                    Clear local data and restart app
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- setari experienta -->
+                    <div id="settings-experience" class="settings-panel">
+                        <h3 class="settings-panel-title" data-i18n="settings.experienceTitle">
+                            Playback & UI
+                        </h3>
+                        <p class="settings-panel-description" data-i18n="settings.experienceDescription">
+                            Control autoplay behavior, visual intensity and theme accent colors.
+                        </p>
+
+                        <div class="settings-grid">
+                            <div>
+                                <div class="settings-toggle-row">
+                                    <label class="switch">
+                                        <input id="setting-autoplay" type="checkbox" />
+                                        <span class="switch-slider"></span>
+                                    </label>
+                                    <div>
+                                        <div class="settings-toggle-label" data-i18n="settings.autoplayLabel">
+                                            Autoplay next title
+                                        </div>
+                                        <div class="settings-toggle-description" data-i18n="settings.autoplayDescription">
+                                            Automatically continue watching when the current title finishes.
+                                            Behavior is simulated in this prototype.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="settings-toggle-row">
+                                    <label class="switch">
+                                        <input id="setting-reduce-flashing" type="checkbox" />
+                                        <span class="switch-slider"></span>
+                                    </label>
+                                    <div>
+                                        <div class="settings-toggle-label" data-i18n="settings.reduceFlashingLabel">
+                                            Reduce flashing
+                                        </div>
+                                        <div class="settings-toggle-description" data-i18n="settings.reduceFlashingDescription">
+                                            Soften some visual effects and transitions for more comfort.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="settings-label" data-i18n="settings.accentLabel">Accent colors</label>
+                                <div class="accent-options">
+                                    <button type="button"
+                                            class="accent-option active"
+                                            data-accent="flag">
+                                        <span class="accent-swatch accent-flag"></span>
+                                        <span data-i18n="settings.accentFlag">Romanian flag</span>
+                                    </button>
+                                    <button type="button"
+                                            class="accent-option"
+                                            data-accent="red">
+                                        <span class="accent-swatch accent-red"></span>
+                                        <span data-i18n="settings.accentRed">Red focus</span>
+                                    </button>
+                                    <button type="button"
+                                            class="accent-option"
+                                            data-accent="blue">
+                                        <span class="accent-swatch accent-blue"></span>
+                                        <span data-i18n="settings.accentBlue">Blue focus</span>
+                                    </button>
+                                </div>
+                                <p class="settings-hint" data-i18n="settings.accentHint">
+                                    Accent colors are applied to buttons and highlights across the app.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- popup video player, ia doar mp4 si il baga popup -->
+    <div id="player-overlay" class="player-overlay" aria-hidden="true">
+        <div class="player-dialog">
+            <div class="player-header">
+                <div id="player-title" class="player-title">Playing</div>
+                <button id="player-close" class="modal-close" aria-label="Close player">
+                    ✕
+                </button>
+            </div>
+            <div class="player-body">
+                <div class="player-aspect">
+                    <video id="player-video"
+                           class="player-video"
+                           controls
+                           preload="metadata">
+                        <source id="player-video-source" src="" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- bara asta ia timpu filmului si boom apare realistic -->
+        <div id="now-playing-bar" class="now-playing-bar">
+            <div class="np-left">
+                <div class="np-dot"></div>
+                <div>
+                    <div id="np-title" class="np-title">Now playing</div>
+                    <div id="np-time" class="np-time">00:00 / 00:00</div>
+                </div>
+            </div>
+            <div class="np-progress">
+                <div id="np-progress-inner" class="np-progress-inner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- popup film cu detalii -->
+    <div id="movie-modal-overlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button id="modal-close" class="modal-close" aria-label="Close">
+                ✕
+            </button>
+            <div class="modal-layout">
+                <div class="modal-image">
+                    <div id="modal-bg" class="modal-bg"></div>
+                    <div class="modal-poster-wrapper">
+                        <img id="modal-poster" class="modal-poster" src="" alt="" />
+                    </div>
+                </div>
+                <div class="modal-content">
+                    <h2 id="modal-title" class="modal-title"></h2>
+                    <div class="modal-meta">
+                        <span id="modal-year"></span>
+                        <span class="hero-dot">•</span>
+                        <span id="modal-duration"></span>
+                        <span class="hero-dot">•</span>
+                        <span id="modal-rating"></span>
+                        <span class="hero-dot">•</span>
+                        <span id="modal-age-rating">15+</span>
+                    </div>
+                    <div id="modal-tags" class="modal-tags"></div>
+                    <p id="modal-description" class="modal-description"></p>
+
+                    <div class="modal-actions">
+                        <button id="modal-play" class="btn btn-primary" data-i18n="hero.play">
+                            ▶ Play
+                        </button>
+                        <button id="modal-toggle-list" class="btn btn-secondary">
+                            + My List
+                        </button>
+                    </div>
+
+                    <div class="modal-info-grid">
+                        <div>
+                            <h3 class="modal-info-title" data-i18n="modal.detailsTitle">Details</h3>
+                            <p>
+                                <span class="info-label" data-i18n="modal.director">Director:</span>
+                                <span id="modal-director"></span>
+                            </p>
+                            <p>
+                                <span class="info-label" data-i18n="modal.cast">Main cast:</span>
+                                <span id="modal-cast"></span>
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="modal-info-title" data-i18n="modal.languageTitle">Language & subtitles</h3>
+                            <p>
+                                <span class="info-label" data-i18n="modal.languageLabel">Language:</span>
+                                <span data-i18n="modal.languageValue">Romanian</span>
+                            </p>
+                            <p>
+                                <span class="info-label" data-i18n="modal.subtitlesLabel">Subtitles:</span>
+                                <span data-i18n="modal.subtitlesValue">RO, EN</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
